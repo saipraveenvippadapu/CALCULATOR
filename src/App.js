@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useSate, useState } from "react";
+import "./App.css";
+import Keypad from "./keypad";
 function App() {
+  let [input, updateInput] = useState(" ");
+  function HandleClick(value) {
+    updateInput(input + value);
+  }
+  function Evaluate() {
+    let outPut = eval(input);
+    updateInput(outPut);
+  }
+  function Clear() {
+    updateInput("");
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="calculator">
+        <input type="text" className="display" value={input} />
+        <Keypad
+          onButton={HandleClick}
+          Answer={Evaluate}
+          ClrScr={Clear}
+        ></Keypad>
+      </div>
     </div>
   );
 }
